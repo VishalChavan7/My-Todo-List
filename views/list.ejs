@@ -1,0 +1,36 @@
+<%- include("header") -%>
+
+<div class="container">
+  <div class="header">
+    <h1>Today</h1>
+  </div>
+
+  <div class="tasks">
+    <% if (savedItem.length === 0) { %>
+    <div class="empty-quote">
+      <p><%= quote %></p>
+    </div>
+    <% } else { %> <% for (let list of savedItem) { %>
+    <form method="post" action="/delete">
+      <div class="task-item">
+        <div class="round">
+          <input
+            type="checkbox"
+            onchange="this.form.submit()"
+            name="check"
+            value="<%= list._id %>"
+            id="checkbox-<%= list._id %>"
+          />
+          <label for="checkbox-<%= list._id %>"></label>
+        </div>
+        <p><%= list.name %></p>
+      </div>
+    </form>
+    <% } %> <% } %>
+
+    <form class="add-task" action="/" method="post">
+      <input type="text" name="listItem" placeholder="Add a new task..." />
+      <button type="submit">+</button>
+    </form>
+  </div>
+</div>
